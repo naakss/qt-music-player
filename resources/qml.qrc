@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/main.qml</file>
+        <file>qml/Controls/ButtonControl.qml</file>
+        <file>qml/Controls/qmldir</file>
+        <file>qml/Controls/ScrollControl.qml</file>
+        <file>qml/Controls/Separator.qml</file>
+        <file>qml/Themes/DefaultTheme.qml</file>
+        <file>qml/Themes/qmldir</file>
+        <file>qml/SplashScreen.qml</file>
+        <file>qml/Controls/TextControl.qml</file>
+        <file>qml/HomeScreen.qml</file>
+        <file>qml/Controls/TabControl.qml</file>
+        <file>qml/SongsTab.qml</file>
+        <file>qml/PlaylistTab.qml</file>
+        <file>qml/ListDelegate.qml</file>
+        <file>qml/PlayerScreen.qml</file>
+    </qresource>
+</RCC>

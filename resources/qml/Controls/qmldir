@@ -1,0 +1,6 @@
+Module Controls
+TextControl 1.0 TextControl.qml
+ButtonControl 1.0 ButtonControl.qml
+ScrollControl 1.0 ScrollControl.qml
+TabControl 1.0 TabControl.qml
+Separator 1.0 Separator.qml
