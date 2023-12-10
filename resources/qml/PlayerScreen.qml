@@ -46,7 +46,7 @@ Rectangle {
         playing: root.playing
         name: songName.text
         progress: (slider.value / slider.to) * miniPlayer.width
-        visible: root.miniPlayer && app.audioSource.length > 0
+        visible: root.miniPlayer
         onPrevious: {
             root.previous();
         }
@@ -57,7 +57,6 @@ Rectangle {
             if (miniPlayer.playing) {
                 mediaPlayer.pause();
             } else {
-                mediaPlayer.seek(0);
                 mediaPlayer.play();
             }
         }
@@ -177,7 +176,6 @@ Rectangle {
                 if (root.playing) {
                     mediaPlayer.pause();
                 } else {
-                    mediaPlayer.seek(0);
                     mediaPlayer.play();
                 }
             }

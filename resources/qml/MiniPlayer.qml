@@ -30,6 +30,7 @@ Rectangle {
         radius: DefaultTheme.radius
         height: parent.height * 0.68
         width: height
+        visible: app.audioSource.length > 0
 
         TextControl {
             anchors.centerIn: parent
@@ -46,6 +47,7 @@ Rectangle {
         anchors.leftMargin: DefaultTheme.margins
         font.pixelSize: DefaultTheme.fontSizeS
         color: DefaultTheme.textColor
+        visible: musicIconMini.visible
     }
 
     RowLayout {
@@ -53,6 +55,7 @@ Rectangle {
         anchors.rightMargin: DefaultTheme.margins
         anchors.verticalCenter: parent.verticalCenter
         spacing: DefaultTheme.margins * 3
+        visible: musicIconMini.visible
 
         TextControl {
             font.family: mainWindow.fontName
