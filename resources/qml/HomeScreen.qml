@@ -51,10 +51,12 @@ Rectangle {
         height: DefaultTheme.height - y
 
         SongsTab {
+            id: songsTab
             anchors.left: parent.left
         }
 
         PlaylistTab {
+            id: playlistTab
             anchors.right: parent.right
         }
     }
@@ -94,6 +96,13 @@ Rectangle {
     PlayerScreen {
         id: playerScreen
         y: height
+        onStopped: {
+            if (internal.activeTab === 2) {
+                // Play next in playlist
+            } else {
+                songsTab.playNext();
+            }
+        }
     }
 
     PropertyAnimation {

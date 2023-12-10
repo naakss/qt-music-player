@@ -20,9 +20,7 @@ Rectangle {
         buttonText: qsTr("Play")
         onClicked: {
             if (listView.count > 0) {
-                app.audioSource = listView.currentItem.path
-                app.audioName = listView.currentItem.text
-                playerOpenAnimation.start()
+                playSelected();
             }
         }
     }
@@ -41,10 +39,8 @@ Rectangle {
             text: fileName
             isCurrentItem: ListView.isCurrentItem
             onClicked: {
-                listView.currentIndex = index
-                app.audioSource = path
-                app.audioName = text
-                playerOpenAnimation.start()
+                listView.currentIndex = index;
+                playSelected();
             }
             property string path: filePath
         }
@@ -56,5 +52,18 @@ Rectangle {
         folder: "file:" + app.songsPath()
         showDirs: false // Only files are shown, no folders
         nameFilters: [ "*.mp3"]
+    }
+
+    function playNext() {
+        if (listView.currentIndex + 1 < listView.count) {
+            listView.currentIndex = listView.currentIndex + 1;
+            playSelected();
+        }
+    }
+
+    function playSelected() {
+        app.audioSource = listView.currentItem.path;
+        app.audioName = listView.currentItem.text;
+        playerOpenAnimation.start();
     }
 }

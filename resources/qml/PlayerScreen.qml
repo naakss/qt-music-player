@@ -15,11 +15,20 @@ Rectangle {
 
     property bool playing: mediaPlayer.playbackState === MediaPlayer.PlayingState
 
+    signal stopped()
+
+    MouseArea {
+        anchors.fill: parent
+    }
+
     MediaPlayer {
         id: mediaPlayer
         source: app.audioSource.length > 0 ? ("file://" + app.audioSource) : ""
         onPositionChanged: {
             updateElapsedTime()
+        }
+        onStopped: {
+            stopTimer.start();
         }
     }
 
@@ -120,6 +129,7 @@ Rectangle {
                 if (root.playing) {
                     mediaPlayer.pause()
                 } else {
+                    mediaPlayer.seek(0);
                     mediaPlayer.play()
                 }
             }
@@ -138,6 +148,14 @@ Rectangle {
         function onAudioSourceChanged() {
             mediaPlayer.seek(0);
             mediaPlayer.play();
+        }
+    }
+
+    Timer {
+        id: stopTimer
+        interval: 500
+        onTriggered: {
+            root.stopped();
         }
     }
 
