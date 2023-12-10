@@ -11,17 +11,23 @@ Rectangle {
     height: parent.height
     color: DefaultTheme.backgroundColor
 
-    property alias folder: folderModel.folder
+    property alias folder: folderModel_.folder
     property bool playing: false
 
     signal pauseRequest()
+
+    onFolderChanged: {
+        if (listView_.count > 0) {
+            listView_.currentIndex = 0;
+        }
+    }
 
     MouseArea {
         anchors.fill: parent
     }
 
     ButtonControl {
-        id: playButton
+        id: playButton_
         anchors.top: parent.top
         anchors.topMargin: DefaultTheme.margins
         anchors.horizontalCenter: parent.horizontalCenter
@@ -29,7 +35,7 @@ Rectangle {
         buttonIcon: root.playing ? "\uf04c" : "\uf04b"
         buttonText: root.playing ? qsTr("Pause") : qsTr("Play")
         onClicked: {
-            if (listView.count > 0) {
+            if (listView_.count > 0) {
                 if (root.playing) {
                     root.pauseRequest();
                 } else {
@@ -40,20 +46,20 @@ Rectangle {
     }
 
     ListView {
-        id: listView
-        anchors.top: playButton.bottom
+        id: listView_
+        anchors.top: playButton_.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: DefaultTheme.margins
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        model: folderModel
+        model: folderModel_
         delegate: ListDelegate {
             text: formatFilename(fileName)
             isCurrentItem: ListView.isCurrentItem
             onClicked: {
-                listView.currentIndex = index;
+                listView_.currentIndex = index;
                 playSelected();
             }
             property string path: filePath
@@ -62,22 +68,22 @@ Rectangle {
     }
 
     FolderListModel {
-        id: folderModel
+        id: folderModel_
         showDirs: false // Only files are shown, no folders
         nameFilters: [ "*.mp3"]
     }
 
     function playNext() {
-        if (listView.currentIndex + 1 < listView.count) {
-            listView.currentIndex = listView.currentIndex + 1;
+        if (listView_.currentIndex + 1 < listView_.count) {
+            listView_.currentIndex = listView_.currentIndex + 1;
             playSelected();
         }
     }
 
     function playSelected() {
         app.audioSource = "";
-        app.audioSource = listView.currentItem.path;
-        app.audioName = listView.currentItem.text;
+        app.audioSource = listView_.currentItem.path;
+        app.audioName = listView_.currentItem.text;
         playerOpenAnimation.start();
     }
 }

@@ -33,6 +33,12 @@ QString Application::songsPath()
     return dir.currentPath() + "/songs";
 }
 
+QString Application::playlistPath()
+{
+    QDir dir;
+    return dir.currentPath() + "/playlist";
+}
+
 QString Application::audioSource() const
 {
     return m_audioSource;

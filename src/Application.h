@@ -23,6 +23,7 @@ public:
 public slots:
     bool init();
     QString songsPath();
+    QString playlistPath();
 
     void setAudioSource(const QString &newAudioSource);
     void setAudioName(const QString &newAudioName);

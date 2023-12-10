@@ -53,11 +53,20 @@ Rectangle {
         SongsTab {
             id: songsTab
             anchors.left: parent.left
+            folder: "file:" + app.songsPath()
+            playing: playerScreen.playing
+            onPauseRequest: {
+                playerScreen.pausePlayer();
+            }
         }
 
         PlaylistTab {
             id: playlistTab
             anchors.right: parent.right
+            playing: playerScreen.playing
+            onPauseRequest: {
+                playerScreen.pausePlayer();
+            }
         }
     }
 
@@ -98,7 +107,7 @@ Rectangle {
         y: height
         onStopped: {
             if (internal.activeTab === 2) {
-                // Play next in playlist
+                playlistTab.playNext();
             } else {
                 songsTab.playNext();
             }

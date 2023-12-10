@@ -21,4 +21,11 @@ Window {
     HomeScreen {}
 
     SplashScreen {}
+
+    function formatFilename(filename) {
+        if (filename.endsWith(".mp3")) {
+            return filename.substring(0, filename.length - 4);
+        }
+        return filename;
+    }
 }

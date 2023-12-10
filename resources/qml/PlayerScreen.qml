@@ -25,10 +25,12 @@ Rectangle {
         id: mediaPlayer
         source: app.audioSource.length > 0 ? ("file://" + app.audioSource) : ""
         onPositionChanged: {
-            updateElapsedTime()
+            updateTime()
         }
         onStopped: {
-            stopTimer.start();
+            if (position === duration) {
+              stopTimer.start();
+            }
         }
     }
 
@@ -159,20 +161,23 @@ Rectangle {
         }
     }
 
-    function formatFilename(filename) {
-        if (filename.endsWith(".mp3")) {
-            return filename.substring(0, filename.length - 4);
-        }
-        return filename;
-    }
-
-    function updateElapsedTime() {
+    function updateTime() {
+        // Update elapsed time
         var elapsedMinutes = Math.floor(mediaPlayer.position / 1000 / 60)
         var elapsedSeconds = Math.floor((mediaPlayer.position / 1000) % 60)
         elapsedTime.text = pad(elapsedMinutes) + ":" + pad(elapsedSeconds)
+
+        // Update total time
+        var totalMinutes = Math.floor(mediaPlayer.duration / 1000 / 60)
+        var totalSeconds = Math.floor((mediaPlayer.duration / 1000) % 60)
+        totalTime.text = pad(totalMinutes) + ":" + pad(totalSeconds)
     }
 
     function pad(number) {
         return (number < 10) ? "0" + number : number
+    }
+
+    function pausePlayer() {
+        mediaPlayer.pause();
     }
 }

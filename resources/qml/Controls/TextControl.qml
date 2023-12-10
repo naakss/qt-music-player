@@ -12,6 +12,7 @@ Text {
 
     MouseArea {
         anchors.fill: parent
+        anchors.margins: -DefaultTheme.spacing
         onClicked: {
             control.clicked()
         }
