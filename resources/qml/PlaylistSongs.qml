@@ -11,12 +11,12 @@ Rectangle {
     height: parent.height
     color: DefaultTheme.backgroundColor
 
-    property alias folder: folderModel_.folder
     property bool playing: false
+    property alias model: listView_.model
 
     signal pauseRequest()
 
-    onFolderChanged: {
+    onModelChanged: {
         if (listView_.count > 0) {
             listView_.currentIndex = 0;
         }
@@ -54,23 +54,16 @@ Rectangle {
         anchors.margins: DefaultTheme.margins
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        model: folderModel_
         delegate: ListDelegate {
-            text: formatFilename(fileName)
+            text: formatFilename(modelData)
             isCurrentItem: ListView.isCurrentItem
             onClicked: {
                 listView_.currentIndex = index;
                 playSelected();
             }
-            property string path: filePath
+            property string path: modelData
         }
         ScrollBar.vertical: ScrollControl {}
-    }
-
-    FolderListModel {
-        id: folderModel_
-        showDirs: false // Only files are shown, no folders
-        nameFilters: [ "*.mp3"]
     }
 
     function playNext() {

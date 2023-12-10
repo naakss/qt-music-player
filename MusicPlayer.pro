@@ -18,12 +18,6 @@ songFiles.target = copy_songs_folder
 QMAKE_EXTRA_TARGETS += songFiles
 PRE_TARGETDEPS += copy_songs_folder
 
-# Copy playlist to build directory
-copyData.commands = mkdir -p $${OUT_PWD}/playlist/MyPlaylist/ && $(COPY_DIR) $$PWD/playlist/MyPlaylist $$OUT_PWD/playlist
-copyData.target = copy_playlist_folder
-QMAKE_EXTRA_TARGETS += copyData
-PRE_TARGETDEPS += copy_playlist_folder
-
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

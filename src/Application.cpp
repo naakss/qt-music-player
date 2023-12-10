@@ -15,6 +15,10 @@ Application::Application(int &argc, char **argv) : QApplication(argc, argv)
     m_engine->addImportPath("qrc:/qml");
     m_engine->rootContext()->setContextProperty("app", this);
     m_engine->load(QStringLiteral("qrc:/qml/main.qml"));
+
+    QObject::connect(this, &Application::playlistMapChanged, [=]() {
+        setPlaylistNames(m_playlistMap.keys());
+    });
 }
 
 Application::~Application()
@@ -24,19 +28,33 @@ Application::~Application()
 
 bool Application::init()
 {
+    createDefaultPlaylists();
     return true;
 }
 
 QString Application::songsPath()
 {
     QDir dir;
-    return dir.currentPath() + "/songs";
+    return dir.currentPath() + "/songs/";
 }
 
-QString Application::playlistPath()
+void Application::addPlaylist(const QString &name, QStringList list)
 {
-    QDir dir;
-    return dir.currentPath() + "/playlist";
+    m_playlistMap.insert(name, list);
+    emit playlistMapChanged();
+}
+
+void Application::deletePlaylist(const QString &name)
+{
+    if (m_playlistMap.remove(name) == 1) {
+        emit playlistMapChanged();
+    }
+}
+
+void Application::onPlaylistSelected(const QString &name)
+{
+    m_selectedPlaylist = name;
+    setPlaylistSongs(m_playlistMap.value(name));
 }
 
 QString Application::audioSource() const
@@ -65,4 +83,49 @@ void Application::setAudioName(const QString &newAudioName)
 
     m_audioName = newAudioName;
     emit audioNameChanged();
+}
+
+void Application::createDefaultPlaylists()
+{
+    QStringList playlist1;
+    playlist1 << (songsPath() + "Electronic-rock-king.mp3");
+    playlist1 << (songsPath() + "Jazzy-abstract-beat.mp3");
+    playlist1 << (songsPath() + "Forest-lullaby.mp3");
+    playlist1 << (songsPath() + "Lofi-study.mp3");
+    playlist1 << (songsPath() + "Chill-abstract-intention.mp3");
+    addPlaylist("MyPlaylist", playlist1);
+
+    QStringList playlist2;
+    playlist2 << (songsPath() + "Calm-mind.mp3");
+    playlist2 << (songsPath() + "Chill-abstract-intention.mp3");
+    playlist2 << (songsPath() + "Lofi-study.mp3");
+    addPlaylist("Relax", playlist2);
+}
+
+QStringList Application::playlistNames() const
+{
+    return m_playlistNames;
+}
+
+void Application::setPlaylistNames(const QStringList &newPlaylistNames)
+{
+    if (m_playlistNames == newPlaylistNames)
+        return;
+
+    m_playlistNames = newPlaylistNames;
+    emit playlistNamesChanged();
+}
+
+QStringList Application::playlistSongs() const
+{
+    return m_playlistSongs;
+}
+
+void Application::setPlaylistSongs(const QStringList &newPlaylistSongs)
+{
+    if (m_playlistSongs == newPlaylistSongs)
+        return;
+
+    m_playlistSongs = newPlaylistSongs;
+    emit playlistSongsChanged();
 }

@@ -24,24 +24,18 @@ Rectangle {
         anchors.margins: DefaultTheme.margins
         boundsBehavior: Flickable.StopAtBounds
         clip: true
-        model: folderModel
+        model: app.playlistNames
         currentIndex: 0
         delegate: ListDelegate {
-            text: fileName
+            text: modelData
             isCurrentItem: ListView.isCurrentItem
             onClicked: {
                 listView.currentIndex = index;
+                app.onPlaylistSelected(text);
                 songsOpenAnimation.start();
             }
-            property string path: filePath
         }
         ScrollBar.vertical: ScrollControl {}
-    }
-
-    FolderListModel {
-        id: folderModel
-        folder: "file:" + app.playlistPath()
-        showFiles: false // Only folders are shown, no files
     }
 
     PlaylistSongs {
@@ -49,7 +43,7 @@ Rectangle {
         width: parent.width
         x: listView.x + width
         y: listView.y
-        folder: listView.currentItem ? ("file:" + listView.currentItem.path) : ""
+        model: app.playlistSongs
         playing: root.playing
         onPauseRequest: {
             root.pauseRequest();

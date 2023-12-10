@@ -11,6 +11,7 @@ Window {
     flags: Qt.FramelessWindowHint
 
     property alias fontName: fontLoader.name
+    property string songsPath: app.songsPath()
 
     FontLoader
     {
@@ -23,9 +24,8 @@ Window {
     SplashScreen {}
 
     function formatFilename(filename) {
-        if (filename.endsWith(".mp3")) {
-            return filename.substring(0, filename.length - 4);
-        }
-        return filename;
+        let name = filename.endsWith(".mp3") ? filename.substring(0, filename.length - 4) : filename;
+
+        return name.includes(mainWindow.songsPath) ? name.replace(songsPath, "") : name;
     }
 }
