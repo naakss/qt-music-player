@@ -16,6 +16,8 @@ Rectangle {
     property bool playing: mediaPlayer.playbackState === MediaPlayer.PlayingState
 
     signal stopped()
+    signal next()
+    signal previous()
 
     MouseArea {
         anchors.fill: parent
@@ -121,6 +123,9 @@ Rectangle {
             font.family: mainWindow.fontName
             font.pixelSize: DefaultTheme.fontSizeL
             text: "\uf04a"
+            onClicked: {
+                root.previous();
+            }
         }
 
         TextControl {
@@ -129,10 +134,10 @@ Rectangle {
             text: root.playing ? "\uf04c" : "\uf04b"
             onClicked: {
                 if (root.playing) {
-                    mediaPlayer.pause()
+                    mediaPlayer.pause();
                 } else {
                     mediaPlayer.seek(0);
-                    mediaPlayer.play()
+                    mediaPlayer.play();
                 }
             }
         }
@@ -141,6 +146,9 @@ Rectangle {
             font.family: mainWindow.fontName
             font.pixelSize: DefaultTheme.fontSizeL
             text: "\uf04e"
+            onClicked: {
+                root.next();
+            }
         }
     }
 

@@ -118,6 +118,20 @@ Rectangle {
                 songsTab.playNext();
             }
         }
+        onNext: {
+            if (internal.activeTab === 2) {
+                playlistTab.playNext();
+            } else {
+                songsTab.playNext();
+            }
+        }
+        onPrevious: {
+            if (internal.activeTab === 2) {
+                playlistTab.playPrevious();
+            } else {
+                songsTab.playPrevious();
+            }
+        }
     }
 
     PropertyAnimation {

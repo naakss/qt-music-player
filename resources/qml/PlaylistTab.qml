@@ -86,4 +86,8 @@ Rectangle {
     function playNext() {
         songsView.playNext();
     }
+
+    function playPrevious() {
+        songsView.playPrevious();
+    }
 }

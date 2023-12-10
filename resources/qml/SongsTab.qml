@@ -85,4 +85,11 @@ Rectangle {
             root.continueRequest();
         }
     }
+
+    function playPrevious() {
+        if (listView.currentIndex - 1 >= 0) {
+            listView.currentIndex = listView.currentIndex - 1;
+            playSelected();
+        }
+    }
 }

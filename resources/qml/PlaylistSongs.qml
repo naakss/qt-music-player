@@ -83,6 +83,12 @@ Rectangle {
         } else {
             root.continueRequest();
         }
+    }
 
+    function playPrevious() {
+        if (listView_.currentIndex - 1 >= 0) {
+            listView_.currentIndex = listView_.currentIndex - 1;
+            playSelected();
+        }
     }
 }
