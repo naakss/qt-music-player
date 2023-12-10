@@ -17,7 +17,10 @@ Rectangle {
 
     MediaPlayer {
         id: mediaPlayer
-        source: "file://" + app.audioSource
+        source: app.audioSource.length > 0 ? ("file://" + app.audioSource) : ""
+        onPositionChanged: {
+            updateElapsedTime()
+        }
     }
 
     TextControl {
@@ -35,7 +38,7 @@ Rectangle {
     Rectangle {
         id: musicIcon
         anchors.top: parent.top
-        anchors.topMargin: parent.height * 0.3
+        anchors.topMargin: parent.height * 0.25
         anchors.horizontalCenter: parent.horizontalCenter
         color: DefaultTheme.primaryColor
         radius: DefaultTheme.radius
@@ -53,14 +56,51 @@ Rectangle {
     Text{
         id: songName
         anchors.top: musicIcon.bottom
-        anchors.topMargin: DefaultTheme.spacing * 3
+        anchors.topMargin: DefaultTheme.spacing * 2.5
         anchors.horizontalCenter: musicIcon.horizontalCenter
         color: DefaultTheme.textColor
         font.pixelSize: DefaultTheme.fontSizeL
         text: formatFilename(app.audioName)
     }
 
+    SliderControl {
+        id: slider
+        anchors.left: controlsRow.left
+        anchors.bottom: controlsRow.top
+        anchors.bottomMargin: DefaultTheme.margins * 2
+        width: controlsRow.width
+        from: 0
+        to: mediaPlayer.duration
+        value: mediaPlayer.position
+        onPressedChanged: {
+            if (!pressed) {
+                mediaPlayer.seek(slider.value);
+            }
+        }
+    }
+
+    Text {
+        id: elapsedTime
+        anchors.top: slider.bottom
+        anchors.left: slider.left
+        anchors.topMargin: DefaultTheme.spacing * 0.5
+        color: DefaultTheme.textColor
+        font.pixelSize: DefaultTheme.fontSizeS
+        text: "00:00"
+    }
+
+    Text {
+        id: totalTime
+        anchors.top: slider.bottom
+        anchors.right: slider.right
+        anchors.topMargin: DefaultTheme.spacing * 0.5
+        color: DefaultTheme.textColor
+        font.pixelSize: DefaultTheme.fontSizeS
+        text: "00:00"
+    }
+
     RowLayout {
+        id: controlsRow
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: DefaultTheme.margins * 2
@@ -92,13 +132,6 @@ Rectangle {
         }
     }
 
-    function formatFilename(filename) {
-        if (filename.endsWith(".mp3")) {
-            return filename.substring(0, filename.length - 4);
-        }
-        return filename;
-    }
-
     Connections {
         target: app
 
@@ -106,5 +139,22 @@ Rectangle {
             mediaPlayer.seek(0);
             mediaPlayer.play();
         }
+    }
+
+    function formatFilename(filename) {
+        if (filename.endsWith(".mp3")) {
+            return filename.substring(0, filename.length - 4);
+        }
+        return filename;
+    }
+
+    function updateElapsedTime() {
+        var elapsedMinutes = Math.floor(mediaPlayer.position / 1000 / 60)
+        var elapsedSeconds = Math.floor((mediaPlayer.position / 1000) % 60)
+        elapsedTime.text = pad(elapsedMinutes) + ":" + pad(elapsedSeconds)
+    }
+
+    function pad(number) {
+        return (number < 10) ? "0" + number : number
     }
 }

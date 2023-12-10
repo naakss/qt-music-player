@@ -15,5 +15,6 @@
         <file>qml/PlaylistTab.qml</file>
         <file>qml/ListDelegate.qml</file>
         <file>qml/PlayerScreen.qml</file>
+        <file>qml/Controls/SliderControl.qml</file>
     </qresource>
 </RCC>
