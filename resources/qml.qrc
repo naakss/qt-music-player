@@ -17,5 +17,6 @@
         <file>qml/PlayerScreen.qml</file>
         <file>qml/Controls/SliderControl.qml</file>
         <file>qml/PlaylistSongs.qml</file>
+        <file>qml/MiniPlayer.qml</file>
     </qresource>
 </RCC>

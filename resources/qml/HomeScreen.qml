@@ -110,7 +110,6 @@ Rectangle {
 
     PlayerScreen {
         id: playerScreen
-        y: height
         onStopped: {
             if (internal.activeTab === 2) {
                 playlistTab.playNext();
@@ -147,22 +146,6 @@ Rectangle {
         target: tabView
         property: "x"
         to: 0
-        duration: 250
-    }
-
-    PropertyAnimation {
-        id: playerOpenAnimation
-        target: playerScreen
-        property: "y"
-        to: 0
-        duration: 250
-    }
-
-    PropertyAnimation {
-        id: playerCloseAnimation
-        target: playerScreen
-        property: "y"
-        to: DefaultTheme.height
         duration: 250
     }
 }

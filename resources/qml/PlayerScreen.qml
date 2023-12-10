@@ -12,15 +12,55 @@ Rectangle {
     height: DefaultTheme.height
     color: DefaultTheme.backgroundColor
     radius: y > 0 ? DefaultTheme.radius : 0
+    y: height - miniPlayer.height
+    state: ""
 
     property bool playing: mediaPlayer.playbackState === MediaPlayer.PlayingState
+    property bool miniPlayer: true
 
     signal stopped()
     signal next()
     signal previous()
 
+    states: State {
+        name: "fullScreen"
+        when: !root.miniPlayer
+        PropertyChanges { target: root; y: 0 }
+    }
+
+    transitions: Transition {
+        NumberAnimation { properties: "y"; easing.type: Easing.InOutQuad; duration: 250 }
+    }
+
     MouseArea {
         anchors.fill: parent
+        onClicked: {
+            if (root.miniPlayer) {
+                root.miniPlayer = false;
+            }
+        }
+    }
+
+    MiniPlayer {
+        id: miniPlayer
+        playing: root.playing
+        name: songName.text
+        progress: (slider.value / slider.to) * miniPlayer.width
+        visible: root.miniPlayer && app.audioSource.length > 0
+        onPrevious: {
+            root.previous();
+        }
+        onNext: {
+            root.next();
+        }
+        onPlay: {
+            if (miniPlayer.playing) {
+                mediaPlayer.pause();
+            } else {
+                mediaPlayer.seek(0);
+                mediaPlayer.play();
+            }
+        }
     }
 
     MediaPlayer {
@@ -43,8 +83,9 @@ Rectangle {
         font.family: mainWindow.fontName
         font.pixelSize: DefaultTheme.fontSizeL
         text: "\uf107"
+        visible: !root.miniPlayer
         onClicked: {
-            playerCloseAnimation.start()
+            root.miniPlayer = true;
         }
     }
 

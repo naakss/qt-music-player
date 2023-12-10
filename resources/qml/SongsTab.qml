@@ -8,7 +8,7 @@ import Themes 1.0
 Rectangle {
     id: root
     width: parent.width * 0.5
-    height: parent.height
+    height: parent.height - DefaultTheme.rowHeightL
     color: DefaultTheme.backgroundColor
 
     property alias folder: folderModel.folder
@@ -47,6 +47,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: DefaultTheme.margins
+        anchors.bottomMargin: DefaultTheme.spacing
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         model: folderModel
@@ -80,7 +81,6 @@ Rectangle {
             app.audioSource = "";
             app.audioSource = listView.currentItem.path;
             app.audioName = listView.currentItem.text;
-            playerOpenAnimation.start();
         } else {
             root.continueRequest();
         }

@@ -52,6 +52,7 @@ Rectangle {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: DefaultTheme.margins * 1.5
         anchors.margins: DefaultTheme.margins
         boundsBehavior: Flickable.StopAtBounds
         clip: true
@@ -79,7 +80,6 @@ Rectangle {
             app.audioSource = "";
             app.audioSource = listView_.currentItem.path;
             app.audioName = listView_.currentItem.text;
-            playerOpenAnimation.start();
         } else {
             root.continueRequest();
         }

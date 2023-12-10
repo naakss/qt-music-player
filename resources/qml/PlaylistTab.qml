@@ -8,7 +8,7 @@ import Themes 1.0
 Rectangle {
     id: root
     width: parent.width * 0.5
-    height: parent.height
+    height: parent.height - DefaultTheme.rowHeightL
     color: DefaultTheme.backgroundColor
 
     property bool playing: false
@@ -23,6 +23,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         anchors.margins: DefaultTheme.margins
+        anchors.bottomMargin: DefaultTheme.spacing
         boundsBehavior: Flickable.StopAtBounds
         clip: true
         model: app.playlistNames
