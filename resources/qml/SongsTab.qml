@@ -15,6 +15,7 @@ Rectangle {
     property bool playing: false
 
     signal pauseRequest()
+    signal continueRequest()
 
     MouseArea {
         anchors.fill: parent
@@ -75,9 +76,13 @@ Rectangle {
     }
 
     function playSelected() {
-        app.audioSource = "";
-        app.audioSource = listView.currentItem.path;
-        app.audioName = listView.currentItem.text;
-        playerOpenAnimation.start();
+        if (app.audioSource !== listView.currentItem.path) {
+            app.audioSource = "";
+            app.audioSource = listView.currentItem.path;
+            app.audioName = listView.currentItem.text;
+            playerOpenAnimation.start();
+        } else {
+            root.continueRequest();
+        }
     }
 }

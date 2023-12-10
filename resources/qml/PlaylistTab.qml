@@ -14,6 +14,7 @@ Rectangle {
     property bool playing: false
 
     signal pauseRequest()
+    signal continueRequest()
 
     ListView {
         id: listView
@@ -47,6 +48,9 @@ Rectangle {
         playing: root.playing
         onPauseRequest: {
             root.pauseRequest();
+        }
+        onContinueRequest: {
+            root.continueRequest();
         }
 
         TextControl {

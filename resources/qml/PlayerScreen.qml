@@ -28,7 +28,7 @@ Rectangle {
             updateTime()
         }
         onStopped: {
-            if (position === duration) {
+            if (mediaPlayer.status === MediaPlayer.EndOfMedia) {
               stopTimer.start();
             }
         }
@@ -179,5 +179,9 @@ Rectangle {
 
     function pausePlayer() {
         mediaPlayer.pause();
+    }
+
+    function continuePlayer() {
+        mediaPlayer.play();
     }
 }

@@ -15,6 +15,7 @@ Rectangle {
     property alias model: listView_.model
 
     signal pauseRequest()
+    signal continueRequest()
 
     onModelChanged: {
         if (listView_.count > 0) {
@@ -74,9 +75,14 @@ Rectangle {
     }
 
     function playSelected() {
-        app.audioSource = "";
-        app.audioSource = listView_.currentItem.path;
-        app.audioName = listView_.currentItem.text;
-        playerOpenAnimation.start();
+        if (app.audioSource !== listView_.currentItem.path) {
+            app.audioSource = "";
+            app.audioSource = listView_.currentItem.path;
+            app.audioName = listView_.currentItem.text;
+            playerOpenAnimation.start();
+        } else {
+            root.continueRequest();
+        }
+
     }
 }

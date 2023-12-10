@@ -58,6 +58,9 @@ Rectangle {
             onPauseRequest: {
                 playerScreen.pausePlayer();
             }
+            onContinueRequest: {
+                playerScreen.continuePlayer();
+            }
         }
 
         PlaylistTab {
@@ -66,6 +69,9 @@ Rectangle {
             playing: playerScreen.playing
             onPauseRequest: {
                 playerScreen.pausePlayer();
+            }
+            onContinueRequest: {
+                playerScreen.continuePlayer();
             }
         }
     }
