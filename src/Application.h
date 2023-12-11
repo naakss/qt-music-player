@@ -42,7 +42,7 @@ public slots:
     void addSongToPlaylist(const QString& name, const QString& song);
     void deleteSong(const QString& name, const QString& song);
     void addPlaylist(const QString& name, QStringList list);
-    void createNewPlaylist(const QString& name);
+    void createNewPlaylist(const QString& name, QStringList list);
     void deletePlaylist(const QString& name);
     void onPlaylistSelected(const QString& name);
 

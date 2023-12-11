@@ -207,7 +207,8 @@ Rectangle {
                 width: height * 4
                 buttonText: qsTr("OK")
                 onClicked: {
-                    app.createNewPlaylist(textField.text);
+                    addSongsScreen.x = 0;
+                    addSongsScreen.playlistName = textField.text;
                     textField.text = "";
                     createPlaylistPopup.visible = false;
                 }
@@ -222,6 +223,11 @@ Rectangle {
                 }
             }
         }
+    }
+
+    AddSongsScreen {
+        id: addSongsScreen
+        x: width
     }
 
     PropertyAnimation {

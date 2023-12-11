@@ -19,5 +19,7 @@
         <file>qml/PlaylistSongs.qml</file>
         <file>qml/MiniPlayer.qml</file>
         <file>qml/Controls/Toast.qml</file>
+        <file>qml/AddSongsScreen.qml</file>
+        <file>qml/Controls/CheckBoxControl.qml</file>
     </qresource>
 </RCC>

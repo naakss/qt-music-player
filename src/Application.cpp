@@ -87,10 +87,9 @@ void Application::addPlaylist(const QString &name, QStringList list)
     emit playlistMapChanged();
 }
 
-void Application::createNewPlaylist(const QString &name)
+void Application::createNewPlaylist(const QString &name, QStringList list)
 {
-    m_playlistMap.insert(name, QStringList());
-    emit playlistMapChanged();
+    addPlaylist(name, list);
     emit showMessage("Playlist added!");
 }
 
