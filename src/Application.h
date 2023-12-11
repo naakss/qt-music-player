@@ -1,10 +1,19 @@
+/***************************************************************************/
+/*! \file       Application.cpp
+ * \brief       The application class definition
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
 #include <QApplication>
 #include <QStringList>
 #include <QMap>
-
 
 class QQmlApplicationEngine;
 

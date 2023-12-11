@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       SliderControl.qml
+ * \brief       the custom slider that can optionally have a container
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 

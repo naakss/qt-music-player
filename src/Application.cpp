@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       Application.cpp
+ * \brief       The application class implementation
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QDir>

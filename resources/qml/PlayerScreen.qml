@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       PlayerScreen.qml
+ * \brief       the main player screen with volume control
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 import QtQuick.Layouts 1.15

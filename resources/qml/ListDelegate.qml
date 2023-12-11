@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       ListDelegate.qml
+ * \brief       the delegate used for the list views
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 import QtQuick.Layouts 1.15
 

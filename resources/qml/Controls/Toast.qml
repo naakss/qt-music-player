@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       Toast.qml
+ * \brief       shows messages in the screen with a time-out
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 
 import Themes 1.0

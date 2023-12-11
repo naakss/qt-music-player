@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       TabControl.qml
+ * \brief       the tab button used in the Tab Bar
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 import QtQuick.Controls 2.15
 

@@ -1,3 +1,13 @@
+/***************************************************************************/
+/*! \file       SplashScreen.qml
+ * \brief       the screen shown at app lauch with app logo & name
+ *
+ * \copyright   Copyright (c) 2023 Sagar Gurudas Nayak
+ * \copyright   MIT License
+ *
+ * \remark      Email: sagargnayak26@gmail.com
+ ***************************************************************************/
+
 import QtQuick 2.15
 
 import Themes 1.0
