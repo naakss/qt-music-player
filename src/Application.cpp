@@ -98,6 +98,13 @@ void Application::deletePlaylist(const QString &name)
 {
     if (m_playlistMap.remove(name) == 1) {
         emit playlistMapChanged();
+        emit showMessage("Playlist removed!");
+
+        if (m_selectedPlaylist == name) {
+            m_selectedPlaylist = "";
+            setPlaylistSongs(QStringList());
+        }
+        return;
     }
 }
 

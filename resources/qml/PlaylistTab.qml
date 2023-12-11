@@ -53,10 +53,14 @@ Rectangle {
         delegate: ListDelegate {
             text: modelData
             isCurrentItem: ListView.isCurrentItem
+            deleteVisible: true
             onClicked: {
                 listView.currentIndex = index;
                 app.onPlaylistSelected(text);
                 songsOpenAnimation.start();
+            }
+            onDeleteItem: {
+                root.openDeletePopup(text, false)
             }
         }
         ScrollBar.vertical: ScrollControl {}
@@ -106,6 +110,7 @@ Rectangle {
         visible: false
 
         property string path: ""
+        property bool isSong: true
 
         Text {
             id: title
@@ -140,7 +145,12 @@ Rectangle {
                 width: height * 4
                 buttonText: qsTr("Yes")
                 onClicked: {
-                    app.deleteSong(listView.currentItem.text, confirmDeletePopup.path);
+                    if (confirmDeletePopup.isSong) {
+                        app.deleteSong(listView.currentItem.text, confirmDeletePopup.path);
+                    } else {
+                        app.deletePlaylist(confirmDeletePopup.path);
+                    }
+
                     root.closeDeletePopup();
                 }
             }
@@ -238,8 +248,9 @@ Rectangle {
         songsView.playPrevious();
     }
 
-    function openDeletePopup(path) {
+    function openDeletePopup(path, isSong = true) {
         confirmDeletePopup.path = path;
+        confirmDeletePopup.isSong = isSong;
         confirmDeletePopup.visible = true;
     }
 
