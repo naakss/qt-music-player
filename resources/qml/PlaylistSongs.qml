@@ -26,6 +26,7 @@ Rectangle {
 
     signal pauseRequest()
     signal continueRequest()
+    signal deleteSongRequest(string path)
 
     onModelChanged: {
         if (listView_.count > 0) {
@@ -69,10 +70,15 @@ Rectangle {
         delegate: ListDelegate {
             text: formatFilename(modelData)
             isCurrentItem: ListView.isCurrentItem
+            deleteVisible: true
             onClicked: {
                 listView_.currentIndex = index;
                 playSelected();
             }
+            onDeleteItem: {
+                root.deleteSongRequest(path)
+            }
+
             property string path: modelData
         }
         ScrollBar.vertical: ScrollControl {}

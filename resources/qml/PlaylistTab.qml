@@ -63,6 +63,10 @@ Rectangle {
         onContinueRequest: {
             root.continueRequest();
         }
+        onDeleteSongRequest: {
+            root.pauseRequest();
+            root.openDeletePopup(path)
+        }
 
         TextControl {
             anchors.top: parent.top
@@ -74,6 +78,67 @@ Rectangle {
             text: "\uf060"
             onClicked: {
                 songsCloseAnimation.start()
+            }
+        }
+    }
+
+    Rectangle {
+        id: confirmDeletePopup
+        anchors.centerIn: parent
+        width: parent.width * 0.5 + DefaultTheme.borderWidth
+        height: parent.height * 0.6
+        color: DefaultTheme.backgroundColor
+        border.width: DefaultTheme.borderWidth
+        border.color: DefaultTheme.textColor
+        radius: DefaultTheme.radius
+        visible: false
+
+        property string path: ""
+
+        Text {
+            id: title
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.margins: DefaultTheme.margins
+            font.pixelSize: DefaultTheme.fontSize
+            font.bold: true
+            color: DefaultTheme.textColor
+            text: qsTr("Confirm Deletion")
+        }
+
+        Text {
+            anchors.top: title.bottom
+            anchors.left: title.left
+            anchors.right: parent.right
+            anchors.topMargin: DefaultTheme.margins
+            anchors.rightMargin: DefaultTheme.margins
+            font.pixelSize: DefaultTheme.fontSize
+            color: DefaultTheme.textColor
+            wrapMode: Text.WordWrap
+            text: (qsTr("Are you sure you want to delete ") + formatFilename(confirmDeletePopup.path) + "?")
+        }
+
+        Row {
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: DefaultTheme.margins
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: DefaultTheme.margins
+
+            ButtonControl {
+                width: height * 4
+                buttonText: qsTr("Yes")
+                onClicked: {
+                    app.deleteSong(listView.currentItem.text, confirmDeletePopup.path);
+                    root.closeDeletePopup();
+                }
+            }
+
+            ButtonControl {
+                width: height * 4
+                buttonText: qsTr("No")
+                onClicked: {
+                    root.closeDeletePopup();
+                }
             }
         }
     }
@@ -100,5 +165,15 @@ Rectangle {
 
     function playPrevious() {
         songsView.playPrevious();
+    }
+
+    function openDeletePopup(path) {
+        confirmDeletePopup.path = path;
+        confirmDeletePopup.visible = true;
+    }
+
+    function closeDeletePopup() {
+        confirmDeletePopup.path = "";
+        confirmDeletePopup.visible = false;
     }
 }

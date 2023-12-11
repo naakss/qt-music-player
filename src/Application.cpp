@@ -56,10 +56,29 @@ void Application::addSongToPlaylist(const QString &name, const QString &song)
         playlist << song;
         addPlaylist(name, playlist);
         emit showMessage("Song added!");
+
+        if (m_selectedPlaylist == name) {
+            setPlaylistSongs(playlist);
+        }
         return;
     }
 
     emit showMessage("Song already present in playlist!");
+}
+
+void Application::deleteSong(const QString &name, const QString &song)
+{
+    QStringList playlist = m_playlistMap.value(name);
+
+    if (playlist.contains(song)) {
+        playlist.removeAll(song);
+        addPlaylist(name, playlist);
+        setPlaylistSongs(playlist);
+        emit showMessage("Song removed!");
+        return;
+    }
+
+    emit showMessage("Song not found in playlist!");
 }
 
 void Application::addPlaylist(const QString &name, QStringList list)
