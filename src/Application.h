@@ -30,6 +30,7 @@ public:
 public slots:
     bool init();
     QString songsPath();
+    void addSongToPlaylist(const QString& name, const QString& song);
     void addPlaylist(const QString& name, QStringList list);
     void deletePlaylist(const QString& name);
     void onPlaylistSelected(const QString& name);
@@ -47,6 +48,7 @@ signals:
     void playlistMapChanged();
     void playlistNamesChanged();
     void playlistSongsChanged();
+    void showMessage(const QString &message);
 
 private:
     QQmlApplicationEngine *m_engine = nullptr;

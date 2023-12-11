@@ -38,6 +38,20 @@ QString Application::songsPath()
     return dir.currentPath() + "/songs/";
 }
 
+void Application::addSongToPlaylist(const QString &name, const QString &song)
+{
+    QStringList playlist = m_playlistMap.value(name);
+
+    if (!playlist.contains(song)) {
+        playlist << song;
+        addPlaylist(name, playlist);
+        emit showMessage("Song added!");
+        return;
+    }
+
+    emit showMessage("Song already present in playlist!");
+}
+
 void Application::addPlaylist(const QString &name, QStringList list)
 {
     m_playlistMap.insert(name, list);

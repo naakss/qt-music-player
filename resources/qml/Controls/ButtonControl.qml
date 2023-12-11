@@ -25,6 +25,7 @@ Button {
             font.family: mainWindow.fontName
             font.pixelSize: DefaultTheme.fontSizeS
             text: control.buttonIcon
+            visible: text.length > 0
             onClicked: {
                 control.clicked()
             }

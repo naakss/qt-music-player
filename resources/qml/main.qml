@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Window 2.15
 
+import Controls 1.0
 import Themes 1.0
 
 Window {
@@ -23,9 +24,21 @@ Window {
 
     SplashScreen {}
 
+    Toast {
+        id: toast
+    }
+
     function formatFilename(filename) {
         let name = filename.endsWith(".mp3") ? filename.substring(0, filename.length - 4) : filename;
 
         return name.includes(mainWindow.songsPath) ? name.replace(songsPath, "") : name;
+    }
+
+    Connections {
+        target: app
+
+        function onShowMessage(msg) {
+            toast.show(msg);
+        }
     }
 }

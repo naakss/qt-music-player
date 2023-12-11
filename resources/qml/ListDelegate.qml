@@ -1,4 +1,5 @@
 import QtQuick 2.15
+import QtQuick.Layouts 1.15
 
 import Themes 1.0
 import Controls 1.0
@@ -14,8 +15,19 @@ Rectangle {
 
     property alias text: textContent.text
     property bool isCurrentItem: false
+    property bool addVisible: false
+    property bool deleteVisible: false
 
     signal clicked()
+    signal addItem()
+    signal deleteItem()
+
+    MouseArea {
+        anchors.fill: parent
+        onClicked: {
+            root.clicked()
+        }
+    }
 
     Rectangle {
         id: musicIcon
@@ -44,19 +56,36 @@ Rectangle {
         color: DefaultTheme.textColor
     }
 
-    TextControl {
+    RowLayout {
         anchors.right: parent.right
         anchors.rightMargin: DefaultTheme.spacing
         anchors.verticalCenter: musicIcon.verticalCenter
-        font.family: mainWindow.fontName
-        font.pixelSize: DefaultTheme.fontSize
-        text: "\uf142"
-    }
+        spacing: DefaultTheme.margins * 1.5
 
-    MouseArea {
-        anchors.fill: parent
-        onClicked: {
-            root.clicked()
+        TextControl {
+            font.family: mainWindow.fontName
+            font.pixelSize: DefaultTheme.fontSize
+            text: "\uf0fe"
+            visible: root.addVisible
+            onClicked: {
+                root.addItem();
+            }
+        }
+
+        TextControl {
+            font.family: mainWindow.fontName
+            font.pixelSize: DefaultTheme.fontSize
+            text: "\uf1f8"
+            visible: root.deleteVisible
+            onClicked: {
+                root.deleteItem();
+            }
+        }
+
+        TextControl {
+            font.family: mainWindow.fontName
+            font.pixelSize: DefaultTheme.fontSize
+            text: "\uf142"
         }
     }
 }

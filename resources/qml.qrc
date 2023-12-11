@@ -18,5 +18,6 @@
         <file>qml/Controls/SliderControl.qml</file>
         <file>qml/PlaylistSongs.qml</file>
         <file>qml/MiniPlayer.qml</file>
+        <file>qml/Controls/Toast.qml</file>
     </qresource>
 </RCC>

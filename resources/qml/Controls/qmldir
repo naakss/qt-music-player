@@ -5,3 +5,4 @@ ScrollControl 1.0 ScrollControl.qml
 TabControl 1.0 TabControl.qml
 SliderControl 1.0 SliderControl.qml
 Separator 1.0 Separator.qml
+Toast 1.0 Toast.qml
