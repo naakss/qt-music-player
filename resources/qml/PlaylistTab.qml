@@ -26,9 +26,21 @@ Rectangle {
     signal pauseRequest()
     signal continueRequest()
 
+    ButtonControl {
+        id: createButton
+        anchors.top: parent.top
+        anchors.topMargin: DefaultTheme.margins
+        anchors.horizontalCenter: parent.horizontalCenter
+        width: height * 4
+        buttonText: qsTr("Create New")
+        onClicked: {
+            createPlaylistPopup.visible = true;
+        }
+    }
+
     ListView {
         id: listView
-        anchors.top: parent.top
+        anchors.top: createButton.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.bottom: parent.bottom
@@ -54,7 +66,7 @@ Rectangle {
         id: songsView
         width: parent.width
         x: listView.x + width
-        y: listView.y
+        y: createButton.y
         model: app.playlistSongs
         playing: root.playing
         onPauseRequest: {
@@ -138,6 +150,65 @@ Rectangle {
                 buttonText: qsTr("No")
                 onClicked: {
                     root.closeDeletePopup();
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        id: createPlaylistPopup
+        anchors.centerIn: parent
+        width: parent.width * 0.5 + DefaultTheme.borderWidth
+        height: parent.height * 0.6
+        color: DefaultTheme.backgroundColor
+        border.width: DefaultTheme.borderWidth
+        border.color: DefaultTheme.textColor
+        radius: DefaultTheme.radius
+        visible: false
+
+        Text {
+            id: createTitle
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.margins: DefaultTheme.margins
+            font.pixelSize: DefaultTheme.fontSize
+            font.bold: true
+            color: DefaultTheme.textColor
+            text: qsTr("Enter Playlist Name")
+        }
+
+        TextField {
+            id: textField
+            anchors.top: createTitle.bottom
+            anchors.left: createTitle.left
+            anchors.right: parent.right
+            anchors.topMargin: DefaultTheme.margins
+            anchors.rightMargin: DefaultTheme.margins
+            font.pixelSize: DefaultTheme.fontSize
+        }
+
+        Row {
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: DefaultTheme.margins
+            anchors.horizontalCenter: parent.horizontalCenter
+            spacing: DefaultTheme.margins
+
+            ButtonControl {
+                width: height * 4
+                buttonText: qsTr("OK")
+                onClicked: {
+                    app.createNewPlaylist(textField.text);
+                    textField.text = "";
+                    createPlaylistPopup.visible = false;
+                }
+            }
+
+            ButtonControl {
+                width: height * 4
+                buttonText: qsTr("Cancel")
+                onClicked: {
+                    textField.text = "";
+                    createPlaylistPopup.visible = false;
                 }
             }
         }
