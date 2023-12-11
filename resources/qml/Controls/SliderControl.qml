@@ -7,6 +7,8 @@ Slider {
     id: control
     padding: 0
 
+    property bool showContainer: false
+
     background: Rectangle {
         x: control.leftPadding
         y: control.topPadding + control.availableHeight / 2 - height / 2
@@ -20,7 +22,7 @@ Slider {
         Rectangle {
             width: control.visualPosition * parent.width
             height: parent.height
-            color: DefaultTheme.primaryColor
+            color: control.showContainer ? DefaultTheme.textColor : DefaultTheme.primaryColor
             radius: 2
         }
     }
@@ -32,5 +34,15 @@ Slider {
         implicitHeight: 20
         radius: 10
         color: DefaultTheme.textColor
+    }
+
+    Rectangle {
+        anchors.centerIn: parent
+        width: control.width + height * 0.7
+        height: DefaultTheme.buttonHeight * 1.2
+        radius: height * 0.5
+        color: DefaultTheme.primaryColor
+        z: parent.z - 1
+        visible: control.showContainer
     }
 }

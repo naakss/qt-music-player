@@ -191,6 +191,38 @@ Rectangle {
         }
     }
 
+    TextControl {
+        id: soundIcon
+        anchors.right: parent.right
+        anchors.rightMargin: DefaultTheme.margins
+        anchors.verticalCenter: slider.verticalCenter
+        font.family: mainWindow.fontName
+        font.pixelSize: DefaultTheme.fontSizeL
+        text: "\uf6a8"
+        onClicked: {
+            volumeControl.displacement = volumeControl.width * 0.42;
+            closeVolumeTimer.start();
+        }
+    }
+
+    SliderControl {
+        id: volumeControl
+        anchors.right: parent.right
+        anchors.rightMargin: DefaultTheme.margins - displacement
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: -DefaultTheme.margins
+        rotation: -90
+        showContainer: true
+        onValueChanged: {
+            mediaPlayer.volume = volumeControl.value;
+            closeVolumeTimer.restart();
+        }
+
+        property real displacement: volumeControl.width
+
+        Behavior on displacement { NumberAnimation { duration: 400 } }
+    }
+
     Connections {
         target: app
 
@@ -206,6 +238,18 @@ Rectangle {
         onTriggered: {
             root.stopped();
         }
+    }
+
+    Timer {
+        id: closeVolumeTimer
+        interval: 5000
+        onTriggered: {
+            volumeControl.displacement = volumeControl.width;
+        }
+    }
+
+    Component.onCompleted: {
+        volumeControl.value = mediaPlayer.volume
     }
 
     function updateTime() {
